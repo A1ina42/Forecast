@@ -1,0 +1,74 @@
+.all-charts{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 30px;
+}
+
+h4 {
+  margin-left: 40px;
+  margin-top: 25px;
+}
+
+input {
+  margin-top: 5px;
+}
+
+.fa-trash-alt {
+  color: red;
+}
+
+.presets {
+  font-size: 20px;
+  line-height: 1.8; 
+}
+
+.form-control {
+  width: 90%;
+  display: inline-block;
+}
+
+.inleft {
+  margin-left: 40px;
+  width: 85%;
+  margin-top: 5px;
+}
+
+.import {
+  margin-left: 40px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  text-align: center;
+}
+
+input[type="button"] {
+  width: 97%;
+}
+
+
+input[type="submit"] {
+  width: 85%;
+  align-content: flex-end;
+  margin-left: 40px;
+}
+
+.fields {
+  list-style: none;
+}
+
+.plus {
+  text-align: right;
+}
+
+.public {
+    float: left;
+    margin-right: 60px;
+}
+
+.help {
+  font-size: 18px;
+}
+
+.title {
+  margin: 15px 0px 20px 30px;
+}
+

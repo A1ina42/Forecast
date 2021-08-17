@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <title>Прогнозирование</title>
+</head>
+
+<body>
+    <div id="app">
+        <nav class="navbar navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">Прогнозирование 📈</a>
+            <a class="navbar-brand" href="help.html">❔</a>
+        </nav>
+        <div class="public">
+            <h4>Временной ряд</h4>
+            <ul>
+                <li v-for="(value, index) in values" class="fields">
+                    <input class="form-control" type="Number" min="0" v-model.number="values[index]"
+                        @keyup.enter="checkInput(index)" @blur="checkInput(index)"><a @click.prevent="deleteOne(index)"
+                        v-if="values.length-1 >= N" href="">❌</a>
+                </li>
+                <li class="fields"><input type="button" @click.prevent="addOne" value="Добавить поле"
+                        class="btn btn-primary"></li>
+            </ul>
+
+            <label for="n" class="inleft">Число предшествующих моментов времени</label><br>
+            <input id="n" type="Number" v-model.number="N" class="form-control inleft" placeholder="Введите N"
+                title="Введите N" min="2" max="10" @blur="checkN" @keyup.enter="checkN"><br>
+
+            <label for="count" class="inleft">Количество дней прогноза</label><br>
+            <input id="count" type="Number" v-model.number="forecast" class="form-control inleft"
+                placeholder="Кол-во дней" title="Кол-во дней" min="1" max="10" @blur="checkCount"
+                @keyup.enter="checkCount"><br>
+
+            <label for="alpha" class="inleft">Постоянная сглаживания‎</label><br>
+            <input id="alpha" type="Number" v-model.number="alpha" class="form-control inleft" placeholder="Введите α‎"
+                title="Введите α‎" step="0.01" min="0.01" max="0.3" @blur="checkAlpha" @keyup.enter="checkAlpha"><br>
+
+            <input type="submit" value="Результат" @click="result" class="btn btn-primary"><br>
+            <input type="submit" value="Сохранить" @click="save" class="btn btn-primary" :disabled="!flag"><br>
+            <input type="submit" value="Экспорт в .json" @click="exportJSON" class="btn btn-primary"
+                :disabled="!presets.length"><br>
+            <input type="submit" value="Экспорт в .csv" @click="exportCSV" class="btn btn-primary"
+                :disabled="!flag"><br>
+            <p class="import">Импорт из .json</p>
+            <input type="file" class="btn inleft" @change="showFile" id="inputFile" name="openFile">
+        </div>
+        <div class="all-charts">
+            <apexchart v-if="isChartVisible" type=line height=450 width=1200 :options="chartOptions" :series="series" />
+        </div>
+        <div class="public">
+            <ul>
+                <li v-for="(item, index) in presets" class="presets">{{item}}
+                    <a href="" @click.prevent="storageLoad(index)"><i class="fas fa-download"></i></a>
+                    <a href="" @click.prevent="storageDelete(index)"><i class="fas fa-trash-alt"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="../vue.js"></script>
+    <script src="../apexcharts.min.js"></script>
+    <script src="../vue-apexcharts.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
